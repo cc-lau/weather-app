@@ -115,6 +115,7 @@ body {
 	flex-direction: column;
 	gap: 20px;
 	padding-bottom: 200px;
+	min-width: 600px;
 }
 
 .text-container {
