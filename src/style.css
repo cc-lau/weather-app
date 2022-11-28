@@ -89,6 +89,7 @@ body {
 
 .city-search:focus {
 	outline: none;
+	transition: .35s;
 	border-color: #9ecaed;
     box-shadow: 1px 2px 15px rgba(255, 255, 255, 0.761);
 }

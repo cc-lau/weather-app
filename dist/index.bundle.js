@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
+eval("const searchButton = document.querySelector(\".search-icon\")\nconst temperatureText = document.querySelector(\".temperature-text\")\nconst errorMessage = document.querySelector(\".error-message\")\nsearchButton.addEventListener('click', getWeather)\n\n\n\nasync function getWeather() {\n/* \tconst citySearch = document.querySelector(\".city-search\").value;\n */\t\n  const citySearch = \"London\";\n  console.log(citySearch);\n\ttry {\n\t\tconst response = await fetch(\"https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=1135e03f79d5ce571fbfdce744ed1984&units=imperial\", /* + citySearch, */ {\n\t\t\tmode: \"cors\"\n\t\t});\n\t\tconst weatherData = await response.json();\n\t\tconsole.log(weatherData)\n\t\tconst temperature = Math.round(weatherData.main.temp)\n\n\t\tconsole.log(temperature)\n\t\ttemperatureText.innerHTML = temperature + \"&#8457;\"\n\t} catch (err) {\n\t\t(errorMessage.innerHTML = \"There was an error searching for this city\"),\n\t\terr;\n\t};\n}\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
 
 /***/ })
 
