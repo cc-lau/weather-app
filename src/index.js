@@ -31,13 +31,14 @@ async function getWeather(citySearch) {
 		console.log(weatherData)
 		//WEATHER DATA VARIABLES
 		const cityName = weatherData.name
+		const countryOrigin = weatherData.sys.country
 		const temperature = Math.round(weatherData.main.temp)
 		const feelsLikeTemp = Math.round(weatherData.main.feels_like)
 		const windSpeed = Math.round(weatherData.wind.speed)
 		const humidity = weatherData.main.humidity
 		//UPDATE TEXT
 		temperatureText.innerHTML = temperature + "&#8457;"
-		cityText.innerHTML = cityName
+		cityText.innerHTML = cityName + ", "  + countryOrigin
 		feelsLikeText.innerHTML = "FEELS LIKE: " + feelsLikeTemp + "&#8457;"
 		windText.innerHTML = "WIND: " + windSpeed + "MPH"
 		humidityText.innerHTML = "HUMIDITY: " + humidity + "%"
