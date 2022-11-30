@@ -6,11 +6,9 @@ const feelsLikeText = document.querySelector(".feels-like-text")
 const windText = document.querySelector(".wind-text")
 const humidityText = document.querySelector(".humidity-text")
 
-let citySearch = "";
-
 //CITY SEARCH EVENT LISTENER
 searchButton.addEventListener('click', function() {
-	citySearchValue = document.querySelector(".city-search")
+	let citySearchValue = document.querySelector(".city-search")
 		.value;
 	getWeather(citySearchValue);
 })
