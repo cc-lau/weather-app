@@ -1,23 +1,44 @@
 const searchButton = document.querySelector(".search-icon")
+const metricSymbol = document.querySelector(".metric-symbol")
+const metricSymbolText = document.querySelector(".metric-symbol-text")
 const cityText = document.querySelector(".city-text")
 const temperatureText = document.querySelector(".temperature-text")
 const errorMessage = document.querySelector(".error-message")
 const feelsLikeText = document.querySelector(".feels-like-text")
 const windText = document.querySelector(".wind-text")
 const humidityText = document.querySelector(".humidity-text")
-
 //CITY SEARCH EVENT LISTENER
 searchButton.addEventListener('click', function() {
+	//RESET ERROR MESSAGE
+	if (errorMessage.innerHTML = "There was an error searching for this city") {
+		errorMessage.innerHTML = ""
+	}
 	let citySearchValue = document.querySelector(".city-search")
 		.value;
 	getWeather(citySearchValue);
 })
+//METRIC SYMBOL EVENT LISTENER
+const fahrenheitSymbol = "&#8457;"
+const celsiusSymbol = "&#x2103;"
+let tempMode = "fahrenheit"
+metricSymbol.addEventListener('click', metricSymbolHandler)
 
+function metricSymbolHandler() {
+	if (tempMode === "fahrenheit") {
+		tempMode = "celsius"
+		metricSymbolText.innerHTML = celsiusSymbol
+		console.log(tempMode)
+	} else {
+		tempMode = "fahrenheit"
+		metricSymbolText.innerHTML = fahrenheitSymbol
+		console.log(tempMode)
+	}
+}
 //INITIAL PAGE LOAD CITY WEATHER CALL
 window.onload = function pageLoadWeather() {
 	getWeather("Los Angeles");
+	/* $(".main-container" ).animate({ opacity: 1 }, 1500); */
 }
-
 //OPEN_WEATHER API CALL
 async function getWeather(citySearch) {
 	console.log(citySearch)
@@ -34,12 +55,17 @@ async function getWeather(citySearch) {
 		const feelsLikeTemp = Math.round(weatherData.main.feels_like)
 		const windSpeed = Math.round(weatherData.wind.speed)
 		const humidity = weatherData.main.humidity
+		const fahrenheitTemp = temperature
+		const celsiusTemp = ((temperature - 32) * (5 / 9))
 		//UPDATE TEXT
-		temperatureText.innerHTML = temperature + "&#8457;"
-		cityText.innerHTML = cityName + ", "  + countryOrigin
-		feelsLikeText.innerHTML = "FEELS LIKE: " + feelsLikeTemp + "&#8457;"
-		windText.innerHTML = "WIND: " + windSpeed + "MPH"
-		humidityText.innerHTML = "HUMIDITY: " + humidity + "%"
+		function updateText() {
+			temperatureText.innerHTML = temperature + "&#8457;"
+			cityText.innerHTML = cityName + ", " + countryOrigin
+			feelsLikeText.innerHTML = "FEELS LIKE: " + feelsLikeTemp + "&#8457;"
+			windText.innerHTML = "WIND: " + windSpeed + " MPH"
+			humidityText.innerHTML = "HUMIDITY: " + humidity + "%"
+		}
+		updateText();
 	} catch (err) {
 		(errorMessage.innerHTML = "There was an error searching for this city"), err;
 	};
