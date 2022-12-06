@@ -21,7 +21,12 @@ searchButton.addEventListener('click', function() {
 const fahrenheitSymbol = "&#8457;"
 const celsiusSymbol = "&#x2103;"
 let tempMode = "fahrenheit"
-metricSymbol.addEventListener('click', metricSymbolHandler)
+console.log(tempMode)
+metricSymbol.addEventListener('click', function() {
+	metricSymbolHandler()
+	let citySearchValue = document.querySelector(".city-search").value;
+	getWeather(citySearchValue)
+})
 
 function metricSymbolHandler() {
 	if (tempMode === "fahrenheit") {
@@ -37,7 +42,6 @@ function metricSymbolHandler() {
 //INITIAL PAGE LOAD CITY WEATHER CALL
 window.onload = function pageLoadWeather() {
 	getWeather("Los Angeles");
-	/* $(".main-container" ).animate({ opacity: 1 }, 1500); */
 }
 //OPEN_WEATHER API CALL
 async function getWeather(citySearch) {
@@ -56,12 +60,20 @@ async function getWeather(citySearch) {
 		const windSpeed = Math.round(weatherData.wind.speed)
 		const humidity = weatherData.main.humidity
 		const fahrenheitTemp = temperature
-		const celsiusTemp = ((temperature - 32) * (5 / 9))
+		const celsiusTemp = Math.round((temperature - 32) * (5 / 9))
+		const fahrenheitFeelsLikeTemp = feelsLikeTemp
+		const celsiusFeelsLikeTemp = Math.round((feelsLikeTemp - 32) * (5 / 9))
+		console.log(celsiusTemp)
 		//UPDATE TEXT
 		function updateText() {
-			temperatureText.innerHTML = temperature + "&#8457;"
+			if (tempMode === "fahrenheit") {
+				temperatureText.innerHTML = fahrenheitTemp + fahrenheitSymbol
+				feelsLikeText.innerHTML = "FEELS LIKE: " + fahrenheitFeelsLikeTemp + fahrenheitSymbol
+			} else if (tempMode === "celsius") {
+				temperatureText.innerHTML = celsiusTemp + celsiusSymbol
+				feelsLikeText.innerHTML = "FEELS LIKE: " + celsiusFeelsLikeTemp + celsiusSymbol
+			}
 			cityText.innerHTML = cityName + ", " + countryOrigin
-			feelsLikeText.innerHTML = "FEELS LIKE: " + feelsLikeTemp + "&#8457;"
 			windText.innerHTML = "WIND: " + windSpeed + " MPH"
 			humidityText.innerHTML = "HUMIDITY: " + humidity + "%"
 		}
